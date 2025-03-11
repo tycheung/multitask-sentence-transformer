@@ -1,6 +1,8 @@
 ## Demo with jupyter
 
-The notebook in the base repo demo.ipynb will walk through the 4 tasks described and output my process/thoughts along the way with some of the code. Most of this more front end-ish code is in showcase.py and main.py, which both simply serve as the "glue" to demo capabilities of the main project code. This project is managed with poetry.
+The notebook in the base repo demo.ipynb will walk through the 4 tasks described and output my process/thoughts along the way with some of the code. Most of this more front end-ish code is in showcase.py and main.py, which both simply serve as the "glue" to demo capabilities of the main project code. In addition, intial_setup.py also is responsible for generating a lot of test/demo data. For an understanding of the codebase, focus on the actual subdirectories data, model and training for the actual core functionality.
+
+This project is managed with poetry.
 
 Download and add requirements
 
