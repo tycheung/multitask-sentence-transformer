@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      target: development
+    volumes:
+      - .:/app
+    command: python -m sentence_transformer.main
+    environment:
+      - TF_FORCE_GPU_ALLOW_GROWTH=true
+    depends_on:
+      - tf-serving
+
+  jupyter:
+    build:
+      context: .
+      target: production-jupyter
+    volumes:
+      - .:/app
+      - model-cache:/app/.cache
+    ports:
+      - "8888:8888"
+    environment:
+      - TF_FORCE_GPU_ALLOW_GROWTH=true
+    restart: unless-stopped
+
+  tf-serving:
+    build:
+      context: .
+      dockerfile: serving/Dockerfile
+    ports:
+      - "8500:8500"  # gRPC
+      - "8501:8501"  # REST API
+    volumes:
+      - ./models:/models
+    environment:
+      - MODEL_CONFIG_FILE=/models/models.config
+      - MODEL_NAME=sentence_transformer
+
+volumes:
+  model-cache:
